@@ -29,9 +29,12 @@ const onContactFormSubmit = event => {
   if (email.value.length === 0 || message.value.length === 0) {
     return;
   }
+  userData.email = contactFormEl.email.value;
+  userData.message = contactFormEl.message.value;
+  console.log(userData);
+
   localstorageService.remove('feedback-form-state');
   contactFormEl.reset();
-  console.log(userData);
 };
 
 contactFormEl.addEventListener('input', throttle(onFormFieldInput, 500));
