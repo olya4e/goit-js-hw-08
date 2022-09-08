@@ -1,7 +1,7 @@
 import localstorageService from './localstorage';
 const throttle = require('lodash.throttle');
 const contactFormEl = document.querySelector('.feedback-form');
-const userData = {};
+let userData = {};
 
 const onFormFieldInput = event => {
   const { target } = event;
@@ -13,6 +13,10 @@ const onFormFieldInput = event => {
 
 const onFillContactForm = () => {
   const contactFormDataLS = localstorageService.load('feedback-form-state');
+  if (contactFormDataLS === undefined) {
+    return;
+  }
+  userData = { ...contactFormDataLS };
   for (const item in contactFormDataLS) {
     if (contactFormDataLS.hasOwnProperty(item)) {
       contactFormEl.elements[item].value = contactFormDataLS[item];
